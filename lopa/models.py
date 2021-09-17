@@ -1,30 +1,36 @@
 from django.db import models
 
 
-class Event(models.Model):
-    description = models.TextField(blank=True, null=True)
-    target_frequency = models.FloatField(blank=True, null=True)
+class Event(models.model):
+    description = models.TextField(blank=False)
+    target_frequency = models.FloatField(blank=False)
+    project = models.ForeignKey("app_label.Project", on_delete=models.CASCADE)
 
 
-class Cause(models.Model):
-    description = models.TextField(blank=True, null=True)
-    initial_frequency = models.FloatField(blank=True, null=True)
-    event_id = models.IntegerField(blank=True, null=True)
+class Cause(models.model):
+    description = models.TextField(blank=False)
+    initial_frequency = models.FloatField(blank=False)
+    project = models.ForeignKey("app_label.Project", on_delete=models.CASCADE)
 
 
-class CauseBarrier(models.Model):
-    description = models.TextField(blank=True, null=True)
-    pfd = models.FloatField(blank=True, null=True)
-    cause_id = models.IntegerField(blank=True, null=True)
+class CauseBarrier(models.model):
+    description = models.TextField(blank=False)
+    pfd = models.FloatField(blank=False)
+    project = models.ForeignKey("app_label.Project", on_delete=models.CASCADE)
 
 
-class Consequence(models.Model):
-    description = models.TextField(blank=True, null=True)
-    target_frequency = models.FloatField(blank=True, null=True)
-    event_id = models.IntegerField(blank=True, null=True)
+class Consequence(models.model):
+    description = models.TextField(blank=False)
+    target_frequency = models.FloatField(blank=False)
+    project = models.ForeignKey("app_label.Project", on_delete=models.CASCADE)
 
 
-class ConsequenceBarrier(models.Model):
-    description = models.TextField(blank=True, null=True)
-    pfd = models.FloatField(blank=True, null=True)
-    consequence_id = models.IntegerField(blank=True, null=True)
+class ConsequenceBarrier(models.model):
+    description = models.TextField(blank=False)
+    pfd = models.FloatField(blank=False)
+    project = models.ForeignKey("app_label.Project", on_delete=models.CASCADE)
+
+
+class Project(models.model):
+    name = models.TextField(blank=False)
+    description = models.TextField(blank=False)
