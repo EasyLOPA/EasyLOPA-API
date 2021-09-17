@@ -1,9 +1,6 @@
 from django.db import models
 
 
-app_label = "lopa"
-
-
 class BaseModel(models.Model):
     description = models.TextField(blank=False)
 
