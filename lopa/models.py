@@ -1,36 +1,40 @@
 from django.db import models
 
 
-class Event(models.model):
+app_label = "lopa"
+
+
+class BaseModel(models.Model):
     description = models.TextField(blank=False)
+
+    class Meta:
+        abstract = True
+
+
+class Event(BaseModel):
     target_frequency = models.FloatField(blank=False)
-    project = models.ForeignKey("app_label.Project", on_delete=models.CASCADE)
+    project = models.ForeignKey("Project", on_delete=models.CASCADE)
 
 
-class Cause(models.model):
-    description = models.TextField(blank=False)
+class Cause(BaseModel):
     initial_frequency = models.FloatField(blank=False)
-    project = models.ForeignKey("app_label.Project", on_delete=models.CASCADE)
+    project = models.ForeignKey("Project", on_delete=models.CASCADE)
 
 
-class CauseBarrier(models.model):
-    description = models.TextField(blank=False)
+class CauseBarrier(BaseModel):
     pfd = models.FloatField(blank=False)
-    project = models.ForeignKey("app_label.Project", on_delete=models.CASCADE)
+    project = models.ForeignKey("Project", on_delete=models.CASCADE)
 
 
-class Consequence(models.model):
-    description = models.TextField(blank=False)
+class Consequence(BaseModel):
     target_frequency = models.FloatField(blank=False)
-    project = models.ForeignKey("app_label.Project", on_delete=models.CASCADE)
+    project = models.ForeignKey("Project", on_delete=models.CASCADE)
 
 
-class ConsequenceBarrier(models.model):
-    description = models.TextField(blank=False)
+class ConsequenceBarrier(BaseModel):
     pfd = models.FloatField(blank=False)
-    project = models.ForeignKey("app_label.Project", on_delete=models.CASCADE)
+    project = models.ForeignKey("Project", on_delete=models.CASCADE)
 
 
-class Project(models.model):
-    name = models.TextField(blank=False)
-    description = models.TextField(blank=False)
+class Project(BaseModel):
+    title = models.TextField(blank=False)
